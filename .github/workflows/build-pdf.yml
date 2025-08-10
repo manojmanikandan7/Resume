@@ -18,14 +18,13 @@ jobs:
           name: PDF
           path: My_Resume.pdf
       - name: Commit data
-        shell: pwsh 
+        shell: bash
         run: |
-            & git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            & git config --local user.name "github-actions[bot]"
-            & git add .
-            & git diff HEAD --exit-code | Out-Null
-            if ($LASTEXITCODE -ne 0)
-            {
-                & git commit -m "Add new updated resume"
-                & git push origin main
-            }
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          if ! git diff HEAD --exit-code > /dev/null 2>&1; then
+            current_date=$(date +"%d-%m-%Y")
+            git commit -m "Add new updated resume[$current_date]"
+            git push origin main
+          fi

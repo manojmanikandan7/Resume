@@ -1,4 +1,6 @@
 name: Build LaTeX document
+permissions: 
+  contents: write
 on: [push]
 jobs:
   build_latex:
@@ -15,3 +17,15 @@ jobs:
         with:
           name: PDF
           path: My_Resume.pdf
+      - name: Commit data
+        shell: pwsh 
+        run: |
+            & git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            & git config --local user.name "github-actions[bot]"
+            & git add .
+            & git diff HEAD --exit-code | Out-Null
+            if ($LASTEXITCODE -ne 0)
+            {
+                & git commit -m "Add new updated resume"
+                & git push origin main
+            }

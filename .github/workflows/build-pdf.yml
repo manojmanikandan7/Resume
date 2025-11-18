@@ -17,6 +17,10 @@ jobs:
         with:
           name: PDF
           path: Manoj_Manikandan.pdf
+      
+      # TODO: Change to routing instead
+      - name: Copy PDF to old file name (My_Resume)
+        run: cp Manoj_Manikandan.pdf My_Resume.pdf
       - name: Commit data
         shell: bash
         run: |
